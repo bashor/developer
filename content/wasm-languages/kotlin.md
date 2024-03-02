@@ -19,20 +19,18 @@ In late 2020, they demoed the upcoming version, called "Kotlin/Wasm".
 In early 2023, the new version was released as experimental, and required the Wasm runtime to support the then-experimental Wasm-GC proposal. Kotlin Native `wasm32` target was deprecated.
 In late 2023, Wasm-GC was enabled by default in Chrome and Firefox, and [Kotlin/Wasm went Alpha](https://blog.jetbrains.com/kotlin/2023/12/kotlin-for-webassembly-goes-alpha/).
 
-## Kotlin on JRE
-
-Kotlin compiled to Java bytecode can be executed by the [Java-to-Webassembly tools](/wasm-languages/java).
-
 ## Uses
 
-Kotlin/Wasm can be used in browsers.
-At the time of this writing, KoWasm (see below) has WASI support. But because it requires the new Wasm-GC extension, Spin will not support it until [Wasmtime supports Wasm-GC](https://github.com/bytecodealliance/wasmtime/issues/5032).
+Kotlin/Wasm has a dedicated target to run in JS based envermonets (mainly browsers) -- wasm-js, and wasm-wasi in WASI Preview 1.
+Because it requires the new Wasm-GC extension, Spin will not support it until [Wasmtime supports Wasm-GC](https://github.com/bytecodealliance/wasmtime/issues/5032).
 Therefore, we do not know whether Kotlin can be used to create Fermyon Cloud applications.
+- Kotlin/Wasm has [WASI support since 1.9.20](https://kotlinlang.org/docs/whatsnew1920.html#new-wasm-wasi-target-and-the-renaming-of-the-wasm-target-to-wasm-js).
 
 ## Available Implementations
 
-- Kotlin/Wasm is [in Alpha](https://kotlinlang.org/docs/whatsnew-eap.html#new-kotlin-wasm-target), but requires a version of the Wasm runtime that supports Wasm Garbage Collection (Wasm-GC).
-- Sebastian Deleuze is working on WASI Kotlin support as [KoWasm](https://github.com/sdeleuze/kowasm).
+- Kotlin/Wasm is [in Alpha]([https://kotlinlang.org/docs/whatsnew-eap.html#new-kotlin-wasm-target](https://kotlinlang.org/docs/whatsnew1920.html#kotlin-wasm)), but requires a version of the Wasm runtime that supports Wasm Garbage Collection (Wasm-GC).
+- Kotlin/JVM is producing Java bytecode and can be compiled to wasm by the [Java-to-Webassembly tools](/wasm-languages/java).
+
 
 ## Learn More
 
@@ -41,11 +39,20 @@ Here are some great resources:
 - Official [Kotlin/Wasm page](https://kotl.in/wasm)
 - Official [GitHub repository](https://github.com/Kotlin/kotlin-wasm-examples/), containing a collection of examples demonstrating how to use Kotlin with WebAssembly.
 - Sebastian Deleuze's [excellent article](https://seb.deleuze.fr/the-huge-potential-of-kotlin-wasm/) on the potential for Wasm GC and Kotlin (covering Kotlin 1.8.20 Beta)
+
+At the time of this writing, KoWasm (see below) has WASI support. But because 
+- Sebastian Deleuze is working on WASI Kotlin support as [KoWasm](https://github.com/sdeleuze/kowasm).
+- https://seb.deleuze.fr/introducing-kotlin-wasm/
+-  transcription of the presentation Zalim Bashorov and I gave at Wasm I/O 2023 to introduce Kotlin/Wasm. The recording is also available on YouTube.
+-  https://kotl.in/wasm-pl
+
 - A Feb. 2023 Devclass blog post covering [the new Kotlin Wasm compiler](https://devclass.com/2023/02/14/kotlin-debuts-experimental-kotlin-wasm-target-in-new-beta-a-new-approach-to-frontend-development/)
 - JetBrains' [Kotlin for WebAssembly Goes Alpha](https://blog.jetbrains.com/kotlin/2023/12/kotlin-for-webassembly-goes-alpha/) announcement.
 - The official [preview video](https://www.youtube.com/watch?v=-pqz9sKXatw) of the next-gen Wasm compiler.
 - For the latest feature plan, the [Kotlin Roadmap](https://kotlinlang.org/docs/roadmap.html#roadmap-details) is a good source of information.
-    - The key issue is [KT-46773](https://youtrack.jetbrains.com/issue/KT-46773?_gl=1*srzlan*_ga*NzQzMDU1MDYwLjE2NDI1NTgwMDE.*_ga_J6T75801PF*MTY0MjU1ODAwMS4xLjEuMTY0MjU1ODAxNC4w&_ga=2.168897505.1369047405.1642558002-743055060.1642558001)
+    KT-64569 Kotlin/Wasm: Support Component Model
+    KT-64568 Kotlin/Wasm: Switch wasm-wasi target of libraries to WASI Preview 2
+    KT-60278 Make Kotlin/Wasm suitable for standalone Wasm VMs
     - The WASI support issue is [KT-36172](https://youtrack.jetbrains.com/issue/KT-36172/Support-WASI)
-    - The compiler code is [in GitHub](https://github.com/JetBrains/kotlin/tree/master/compiler/ir/backend.wasm/src/org/jetbrains/kotlin/backend/wasm)
+- The compiler code is [in GitHub](https://github.com/JetBrains/kotlin/tree/master/compiler/ir/backend.wasm/src/org/jetbrains/kotlin/backend/wasm)
 - Wasmtime [tracking issue](https://github.com/bytecodealliance/wasmtime/issues/5032) for Wasm GC
